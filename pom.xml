@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>winnie</groupId>
+  <artifactId>jmeter-api</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>jmeter-api</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_http -->
+	<dependency>
+	    <groupId>org.apache.jmeter</groupId>
+	    <artifactId>ApacheJMeter_http</artifactId>
+	    <version>5.2</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_java -->
+	<dependency>
+	    <groupId>org.apache.jmeter</groupId>
+	    <artifactId>ApacheJMeter_java</artifactId>
+	    <version>5.2</version>
+	</dependency>
+		
+	<!-- https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_functions -->
+	<dependency>
+	    <groupId>org.apache.jmeter</groupId>
+	    <artifactId>ApacheJMeter_functions</artifactId>
+	    <version>5.2</version>
+	</dependency>
+		
+	<!-- https://mvnrepository.com/artifact/org.apache.jmeter/jorphan -->
+	<dependency>
+	    <groupId>org.apache.jmeter</groupId>
+	    <artifactId>jorphan</artifactId>
+	    <version>5.2</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j -->
+	<dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>2.13.0</version>
+	    <type>pom</type>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	    <version>4.5.12</version>
+	</dependency>
+
+			
+  </dependencies>
+  
+  
+</project>
