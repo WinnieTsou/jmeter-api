@@ -59,9 +59,9 @@ public class JMeterTestJob {
 	public void run() {
 		result = new ResultData();
 		testPlanTree.add(testPlanTree.getArray()[0], result);
-		System.out.println(testPlanTree);
 		jmeter.configure(testPlanTree);
 		jmeter.run();
+		
 	}
 	
 	public List<Map<String, String>> getResult() {

@@ -1,6 +1,9 @@
 package winnie.jmeter_api;
+import java.lang.reflect.Parameter;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +12,8 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.jmeter.assertions.DurationAssertion;
 import org.apache.jmeter.assertions.ResponseAssertion;
 import org.apache.jmeter.assertions.SizeAssertion;
+import org.apache.jmeter.config.Argument;
+import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.control.LoopController;
 import org.apache.jmeter.control.gui.LoopControlPanel;
 import org.apache.jmeter.protocol.http.control.Cookie;
@@ -19,6 +24,7 @@ import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui;
 import org.apache.jmeter.protocol.http.gui.CookiePanel;
 import org.apache.jmeter.protocol.http.gui.HeaderPanel;
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy;
+import org.apache.jmeter.protocol.http.util.HTTPArgument;
 import org.apache.jmeter.protocol.http.util.HTTPFileArg;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jmeter.threads.gui.ThreadGroupGui;
@@ -89,8 +95,8 @@ public class JMeterTestElement {
 		loopController.setLoops(1);
 		loopController.initialize();
 		threadGroup.setSamplerController(loopController);
-		threadGroup.setNumThreads(1); /// here
-		threadGroup.setRampUp(1); ///here
+		setNumThread(1);
+		setRampUp(1);
 	}
 	
 	protected HashTree getTestHashTree() {
@@ -103,6 +109,7 @@ public class JMeterTestElement {
 			httpSampler.setCookieManager(cookieManager);
 			threadGroupHashTree.add(httpSampler, cookieManager);
 		}
+		System.out.println(httpSampler.getArguments());
 		
 		threadGroupHashTree.add(httpSampler);
 		
@@ -111,16 +118,6 @@ public class JMeterTestElement {
 	
 	protected ThreadGroup getTestThreadGroup() {
 		return threadGroup;
-	}
-
-	public void addArgument(Map<String, String> args) {
-		for (Map.Entry<String, String> entry : args.entrySet()) {
-			addArgument(entry.getKey(), entry.getValue());
-		}
-	}
-
-	public void addArgument(String key, String value) {
-		httpSampler.addArgument(key, value);
 	}
 
 	public void addCookie(String name, String value, String domain, String path, boolean secure, long expires) {
@@ -162,19 +159,11 @@ public class JMeterTestElement {
 	}
 
 	private void setURL(String urlString) throws Exception {
-		List<NameValuePair> params = null;
 		URL url = new URL(urlString);
-
-		params = URLEncodedUtils.parse(new URI(urlString), "UTF-8");
-
 		httpSampler.setPort(url.getPort());
 		httpSampler.setProtocol(url.getProtocol());
-		httpSampler.setPath(url.getPath());
+		httpSampler.setPath(url.getPath() + "?" + url.getQuery());
 		httpSampler.setDomain(url.getHost());
-
-		for (NameValuePair param : params) {
-			this.addArgument(param.getName(), param.getValue());
-		}
 	}
 	
 	public void setConnectTimeout(String value) {
