@@ -1,5 +1,6 @@
 package winnie.jmeter_api;
 import java.lang.reflect.Parameter;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -109,7 +110,6 @@ public class JMeterTestElement {
 			httpSampler.setCookieManager(cookieManager);
 			threadGroupHashTree.add(httpSampler, cookieManager);
 		}
-		System.out.println(httpSampler.getArguments());
 		
 		threadGroupHashTree.add(httpSampler);
 		

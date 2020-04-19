@@ -2,15 +2,17 @@ package winnie.jmeter_api;
 
 import java.util.*;
 
+import org.apache.jmeter.assertions.Assertion;
+import org.apache.jmeter.assertions.AssertionResult;
 import org.apache.jmeter.reporters.ResultCollector;
 import org.apache.jmeter.samplers.SampleEvent;
 import org.apache.jmeter.samplers.SampleResult;
 
 public class ResultData extends ResultCollector {
-	private List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+	private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	
-	protected List<Map<String, String>> getResult(){
-		return new ArrayList<Map<String, String>>(list);
+	protected List<Map<String, Object>> getResult(){
+		return new ArrayList<Map<String, Object>>(list);
 	}
 	
 	
@@ -21,8 +23,8 @@ public class ResultData extends ResultCollector {
 		list.add(result2Map(record));
 	}
 	
-	private Map<String, String> result2Map(SampleResult record) {
-		Map<String, String> map = new HashMap<String, String>();
+	private Map<String, Object> result2Map(SampleResult record) {
+		Map<String, Object> map = new HashMap<String, Object>();
 
 		map.put("SAMPLE TIME", Long.toString(record.getTime()));
 		map.put("THREAD NUMBER", record.getThreadName());
@@ -45,6 +47,17 @@ public class ResultData extends ResultCollector {
 		map.put("SAMPLE LABEL", record.getSampleLabel());
 		map.put("SAMPLE COUNT", Integer.toString(record.getSampleCount()));
 		map.put("ERROR COUNT", Integer.toString(record.getErrorCount()));
+		
+		int count = 1;
+		Map<String, String> subResult;
+		for (AssertionResult rs: record.getAssertionResults()) {
+			subResult = new HashMap<String, String>();
+			subResult.put("ASSERTION MSG", rs.getFailureMessage());
+			subResult.put("ASSERTION FAIL", Boolean.toString(rs.isFailure()));
+			map.put("ASSERTION " + count, subResult);
+			count ++;
+		}
+		
 
 		return map;
 	}

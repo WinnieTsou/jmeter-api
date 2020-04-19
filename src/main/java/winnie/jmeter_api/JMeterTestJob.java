@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.config.gui.ArgumentsPanel;
 import org.apache.jmeter.control.gui.TestPlanGui;
@@ -64,7 +63,7 @@ public class JMeterTestJob {
 		
 	}
 	
-	public List<Map<String, String>> getResult() {
+	public List<Map<String, Object>> getResult() {
 		return result.getResult();
 	}
 }
