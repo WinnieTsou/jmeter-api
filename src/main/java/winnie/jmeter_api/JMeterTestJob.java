@@ -63,7 +63,11 @@ public class JMeterTestJob {
 		
 	}
 	
-	public List<Map<String, Object>> getResult() {
+	public List<Map<String, Object>> getResultAsList() {
 		return result.getResult();
+	}
+	
+	public String getResultAsJSON() {
+		return result.getResultAsJSON();
 	}
 }

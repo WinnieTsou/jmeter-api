@@ -1,12 +1,14 @@
 package winnie.jmeter_api;
 
 import java.util.*;
-
 import org.apache.jmeter.assertions.Assertion;
 import org.apache.jmeter.assertions.AssertionResult;
 import org.apache.jmeter.reporters.ResultCollector;
 import org.apache.jmeter.samplers.SampleEvent;
 import org.apache.jmeter.samplers.SampleResult;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
 public class ResultData extends ResultCollector {
 	private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -15,6 +17,12 @@ public class ResultData extends ResultCollector {
 		return new ArrayList<Map<String, Object>>(list);
 	}
 	
+	protected String getResultAsJSON() {
+		Gson gson = new Gson();
+        Type gsonType = new TypeToken<List>(){}.getType();
+        String gsonString = gson.toJson(list ,gsonType);
+        return gsonString;
+	}
 	
 	@Override
 	public synchronized void sampleOccurred(SampleEvent e) {
