@@ -7,6 +7,7 @@ import org.apache.jmeter.reporters.ResultCollector;
 import org.apache.jmeter.samplers.SampleEvent;
 import org.apache.jmeter.samplers.SampleResult;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
@@ -18,7 +19,9 @@ public class ResultData extends ResultCollector {
 	}
 	
 	protected String getResultAsJSON() {
-		Gson gson = new Gson();
+		GsonBuilder builder = new GsonBuilder();
+		builder.disableHtmlEscaping();
+		Gson gson = builder.create();
         Type gsonType = new TypeToken<List>(){}.getType();
         String gsonString = gson.toJson(list ,gsonType);
         return gsonString;
